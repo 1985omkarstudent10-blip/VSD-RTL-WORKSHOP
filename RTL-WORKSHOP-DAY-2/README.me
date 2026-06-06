@@ -1,3 +1,218 @@
-# Day 2
+# Day 2 - Timing Libraries, Synthesis Strategies and Flip-Flop Design
 
-Documentation will be added here.
+## Objective
+
+The objective of Day 2 was to understand the role of timing libraries in digital design, explore different synthesis approaches, and study various flip-flop coding styles used in RTL design.
+
+---
+
+## Understanding the Liberty (.lib) File
+
+One of the major topics covered during Day 2 was the study of the Liberty timing library file used during synthesis.
+
+The Liberty (.lib) file contains information about standard cells available in the technology library. These cells are used by the synthesis tool to map RTL logic into actual hardware components.
+
+### Observations
+
+While exploring the library file, I observed that:
+
+* Multiple versions of the same logic gate are available.
+* Gates differ in speed, drive strength, area, and power consumption.
+* Different implementations of gates allow the synthesis tool to select the most suitable cell based on design requirements.
+* The library contains timing, functional, and electrical information required for technology mapping.
+
+Examples include:
+
+* 2-input AND gates
+* 3-input AND gates
+* 4-input AND gates
+* Various inverter and buffer cells
+* Sequential elements such as flip-flops
+
+---
+
+## Understanding Process, Voltage and Temperature (PVT)
+
+I learned that the performance of an integrated circuit is influenced by three important factors:
+
+### Process
+
+Variations introduced during semiconductor fabrication.
+
+### Voltage
+
+Changes in supply voltage affect circuit speed and power consumption.
+
+### Temperature
+
+Temperature variations impact transistor characteristics and propagation delays.
+
+These three parameters together are commonly referred to as **PVT corners**.
+
+---
+
+## Decoding SKY130 Library Naming Convention
+
+I studied the naming convention used in the SKY130 standard cell library.
+
+Example:
+
+```text
+sky130_fd_sc_hd__tt_025C_1v80
+```
+
+### Meaning
+
+| Term   | Description               |
+| ------ | ------------------------- |
+| sky130 | SkyWater 130nm technology |
+| fd     | Foundry design            |
+| sc     | Standard cells            |
+| hd     | High-density library      |
+| tt     | Typical process corner    |
+| 025C   | Temperature = 25°C        |
+| 1v80   | Supply voltage = 1.8V     |
+
+This naming convention indicates the exact operating conditions under which the library has been characterized.
+
+---
+
+## Hierarchical vs Flattened Synthesis
+
+Another important concept studied during the lab was the difference between hierarchical and flattened synthesis.
+
+### Hierarchical Synthesis
+
+In hierarchical synthesis:
+
+* Each module is synthesized separately.
+* Module boundaries are preserved.
+* The design structure remains organized.
+
+### Observations
+
+* Easier to analyze and debug.
+* Individual modules can be studied independently.
+* Useful for large designs with multiple blocks.
+
+---
+
+### Flattened Synthesis
+
+In flattened synthesis:
+
+* All modules are merged into a single design.
+* Module hierarchy is removed.
+* A unified netlist is generated.
+
+### Observations
+
+* Enables more aggressive optimization.
+* Produces a single gate-level representation.
+* Makes tracing individual modules more difficult.
+
+---
+
+## Comparison Performed
+
+After observing both synthesis approaches, I noticed:
+
+| Feature          | Hierarchical       | Flattened                  |
+| ---------------- | ------------------ | -------------------------- |
+| Module Structure | Preserved          | Removed                    |
+| Readability      | Easier             | More complex               |
+| Debugging        | Simpler            | Harder                     |
+| Optimization     | Limited to modules | Entire design optimization |
+
+The synthesized schematics clearly showed the difference between preserving module boundaries and combining the entire design into a single structure.
+
+---
+
+## Flip-Flop Coding Styles
+
+I studied different types of D Flip-Flops and observed their behavior during simulation.
+
+### Asynchronous Reset DFF
+
+* Reset action occurs immediately.
+* Does not wait for a clock edge.
+* Output is forced to logic 0 when reset is asserted.
+
+### Asynchronous Set DFF
+
+* Set action occurs immediately.
+* Does not depend on clock transitions.
+* Output is forced to logic 1 when set is asserted.
+
+### Synchronous Reset DFF
+
+* Reset operation occurs only on the active clock edge.
+* The reset signal is sampled together with the clock.
+
+---
+
+## Understanding Synchronous and Asynchronous Behavior
+
+One of the key concepts I learned was the difference between synchronous and asynchronous control signals.
+
+### Asynchronous Operation
+
+* Response occurs immediately after the control signal changes.
+* Independent of the clock.
+
+### Synchronous Operation
+
+* Response occurs only at the triggering clock edge.
+* The design waits for the clock before updating the output.
+
+This difference became clearly visible during waveform analysis.
+
+---
+
+## Understanding the Always Block
+
+I also learned the role of the Verilog `always` block.
+
+The always block is executed whenever an event specified in the sensitivity list occurs.
+
+Examples include:
+
+* Positive edge of clock signals.
+* Positive edge of reset signals.
+* Changes in combinational inputs.
+
+This construct is fundamental for describing both combinational and sequential logic.
+
+---
+
+## Simulation and Synthesis Activities
+
+During the lab, I:
+
+* Simulated various flip-flop designs.
+* Observed waveform behavior in GTKWave.
+* Compared synchronous and asynchronous operations.
+* Performed synthesis using Yosys.
+* Generated synthesized netlists.
+* Compared hierarchical and flattened synthesis outputs.
+* Examined gate-level representations of the synthesized circuits.
+
+---
+
+## Learning Outcomes
+
+By the end of Day 2, I was able to:
+
+* Understand the purpose of Liberty timing libraries.
+* Interpret PVT conditions used in standard cell characterization.
+* Decode SKY130 library naming conventions.
+* Differentiate between hierarchical and flattened synthesis.
+* Understand the behavior of synchronous and asynchronous flip-flops.
+* Analyze Verilog always blocks and sensitivity lists.
+* Perform simulation and synthesis of sequential circuits.
+
+---
+
+## Conclusion
+
+Day 2 provided a deeper understanding of technology libraries, synthesis methodologies, and sequential circuit design. Through simulation and synthesis exercises, I gained practical experience in analyzing flip-flop behavior and understanding how RTL descriptions are mapped into technology-specific hardware implementations.
